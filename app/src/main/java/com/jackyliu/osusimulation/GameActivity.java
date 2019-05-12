@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.jackyliu.osusimulation.interactiveView.NormalButton;
@@ -14,11 +15,11 @@ public class GameActivity extends AppCompatActivity {
         NORMAL_BUTTON_EVENT
     }
 
-    public LinearLayout getGameScreen() {
+    public FrameLayout getGameScreen() {
         return gameScreen;
     }
 
-    private LinearLayout gameScreen;
+    private FrameLayout gameScreen;
     private Handler mainThreadHandler = new Handler(Looper.getMainLooper());
 
     @Override

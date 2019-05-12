@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".GameActivity">
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <FrameLayout
         android:id="@+id/game_screen"
         android:background="@color/BLACK"
         android:layout_width="match_parent"

@@ -2,38 +2,40 @@ package com.jackyliu.osusimulation.event;
 
 import android.graphics.Color;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 
 import com.jackyliu.osusimulation.GameActivity;
-import com.jackyliu.osusimulation.animation.MatchCircleAnimation;
+import com.jackyliu.osusimulation.animation.ApproachingCircle;
 import com.jackyliu.osusimulation.interactiveView.NormalButton;
 
+import java.io.File;
+
 public class NormalButtonEvent {
-    private LinearLayout gameScreen;
+    private FrameLayout gameScreen;
     private NormalButton normalButton;
-    private MatchCircleAnimation matchCircleAnimation;
+    private ApproachingCircle approachingCircle;
     private int normalButtonWidth = 200;
 
     private int color;
 
-    public NormalButtonEvent(LinearLayout gameScreen, GameActivity gameActivity) {
+    public NormalButtonEvent(FrameLayout gameScreen, GameActivity gameActivity) {
         this.gameScreen = gameScreen;
         normalButton = new NormalButton(gameActivity);
         normalButton.setNormalButtonEvent(this);
-        normalButton.setLayoutParams(new LinearLayout.LayoutParams(normalButtonWidth, normalButtonWidth));
+        normalButton.setLayoutParams(new FrameLayout.LayoutParams(normalButtonWidth, normalButtonWidth));
         normalButton.setVisibility(View.GONE);
-        matchCircleAnimation = new MatchCircleAnimation(gameActivity);
-        matchCircleAnimation.setNormalButtonEvent(this);
-        matchCircleAnimation.setLayoutParams(
-                new LinearLayout.LayoutParams(normalButtonWidth + matchCircleAnimation.getRadiusMaxExpand() * 2,
-                        normalButtonWidth + matchCircleAnimation.getRadiusMaxExpand() * 2));
-        matchCircleAnimation.setMinRadius(normalButtonWidth/2);
-        matchCircleAnimation.setVisibility(View.GONE);
+        approachingCircle = new ApproachingCircle(gameActivity);
+        approachingCircle.setNormalButtonEvent(this);
+        approachingCircle.setLayoutParams(
+                new FrameLayout.LayoutParams(normalButtonWidth + approachingCircle.getRadiusMaxExpand() * 2,
+                        normalButtonWidth + approachingCircle.getRadiusMaxExpand() * 2));
+        approachingCircle.setMinRadius(normalButtonWidth/2);
+        approachingCircle.setVisibility(View.GONE);
+
 
         //todo 之後加入緩存後 下面這兩行或許該拿掉
         gameScreen.addView(normalButton);
-        gameScreen.addView(matchCircleAnimation);
+        gameScreen.addView(approachingCircle);
     }
 
     /**
@@ -43,12 +45,12 @@ public class NormalButtonEvent {
      * @param y
      */
     public void setPosition(int x, int y) {
-        normalButton.setPosition(300, 300);
+        normalButton.setPosition(x - normalButtonWidth/2, y -  normalButtonWidth/2);
 
 //        y -= normalButtonWidth ;
 
-        matchCircleAnimation.setPosition(300,
-                300);
+        approachingCircle.setPosition(x -  normalButtonWidth/2 - approachingCircle.getRadiusMaxExpand(),
+                y -  normalButtonWidth/2 - approachingCircle.getRadiusMaxExpand());
     }
 
     public void startEvent() {
@@ -57,11 +59,11 @@ public class NormalButtonEvent {
                 (int) (Math.random() * 200),
                 (int) (Math.random() * 200));
         normalButton.setColor(color);
-        matchCircleAnimation.setColor(color);
-        matchCircleAnimation.setAlpha(255);
+        approachingCircle.setColor(color);
+        approachingCircle.setAlpha(255);
         normalButton.setVisibility(View.VISIBLE);
-        matchCircleAnimation.setVisibility(View.VISIBLE);
-        matchCircleAnimation.startAnimation();
+        approachingCircle.setVisibility(View.VISIBLE);
+        approachingCircle.startAnimation();
     }
 
     /**
@@ -69,7 +71,7 @@ public class NormalButtonEvent {
      */
     public void finishEvent() {
         normalButton.setVisibility(View.GONE);
-        matchCircleAnimation.setVisibility(View.GONE);
+        approachingCircle.setVisibility(View.GONE);
         //todo 下面或許還需做處理 比方說緩存事件之類的
     }
 }

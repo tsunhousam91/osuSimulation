@@ -15,7 +15,7 @@ import com.jackyliu.osusimulation.event.NormalButtonEvent;
 
 import static com.jackyliu.osusimulation.UIUtils.dpToPx;
 
-public class MatchCircleAnimation extends View {
+public class ApproachingCircle extends View {
     private static final int BORDER_WIDTH_DP = 3;
     //    private static final int INNER_RADIUS_DP = 15;
     private Context context;
@@ -63,8 +63,8 @@ public class MatchCircleAnimation extends View {
     }
 
 
-//    private int radiusMaxExpand = 100;
-    private int radiusMaxExpand = 0;
+    private int radiusMaxExpand = 100;
+
 
     public void setMinRadius(int minRadius) {
         this.minRadius = minRadius;
@@ -72,18 +72,18 @@ public class MatchCircleAnimation extends View {
 
     private int minRadius;
 
-    public MatchCircleAnimation(Context context) {
+    public ApproachingCircle(Context context) {
         super(context);
         this.context = context;
     }
 
-    public MatchCircleAnimation(Context context, AttributeSet attrs) {
+    public ApproachingCircle(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
 
     }
 
-    public MatchCircleAnimation(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ApproachingCircle(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.context = context;
 
@@ -115,8 +115,6 @@ public class MatchCircleAnimation extends View {
         super.onDraw(canvas);
         init();
         canvas.drawCircle((float) getWidth() / 2, (float) getHeight() / 2, (float) radius, paint);
-
-        canvas.drawCircle((float) getWidth() / 2, (float) getHeight() / 2, (float) getWidth()/2, paint);
     }
 
     public void setPosition(int x, int y) {
